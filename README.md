@@ -19,7 +19,7 @@ This is my **first project after a month of learning Java**, created to practice
 ## 🛠️ Tech Stack
 - **Language**: Java  
 - **Data Structures**: `ArrayList`, `HashMap`  
-- **Tools**: Java Scanner for input  
+- **Tools**: Java Scanner for input, SHA-256 Algorithm for Encryption  
 
 ---
 
