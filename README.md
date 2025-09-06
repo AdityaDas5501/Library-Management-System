@@ -9,6 +9,7 @@ This is my **first project after a month of learning Java**, created to practice
 - 🔑 **User Authentication** (Admin & Student roles)
 - 👤 **Registration & Login System**
 - 🛢️ **Database to store usernames & passwords**
+- 🔒 **Password Encryption**
 - 📖 **Add, Show, Search Books** (by title & author)
 - 📦 **Issue & Return Books**
 - ✅ **Book Availability Tracking**
