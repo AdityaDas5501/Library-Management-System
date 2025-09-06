@@ -49,7 +49,7 @@ And select "Create new Database" from the menu
 
 This is just a prototype. Planned features:
 
-💾 File / Database storage for persistent data
+💪 Use salt for more robust password encryption
 
 👥 Track which student issued a book
 
