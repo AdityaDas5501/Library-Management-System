@@ -1,6 +1,8 @@
 import java.io.*;
 import java.util.*;
 public class UserDatabaseManager {
+
+    Encryption en = new Encryption();
     String fileName = "Users_Credential.csv";
 
     //Create new csv file
@@ -18,7 +20,7 @@ public class UserDatabaseManager {
     public void write(String username,String password,String role){
         try(BufferedReader br = new BufferedReader(new FileReader(fileName))){
             try(FileWriter writer = new FileWriter(fileName,true)) {
-                writer.write(username+","+password+","+role+"\n");
+                writer.write(username+","+en.encrypt(password)+","+role+"\n");
             }
             catch(IOException e) {
                 e.printStackTrace();

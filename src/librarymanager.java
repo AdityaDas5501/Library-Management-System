@@ -5,11 +5,12 @@ class Library{
 
     Scanner conin = new Scanner(System.in);
     UserDatabaseManager db = new UserDatabaseManager();
+    Encryption en = new Encryption();
     ArrayList<Book> books = new ArrayList<>();
     HashMap<String, String> ausers = new HashMap<>();
     HashMap<String, String> susers = new HashMap<>();
     int userRole = 0; // 1 = Admin, 2 = Student
-    String username = null;
+    String username = "";
 
     public void display() {
         System.out.println("====== Welcome to Library ======");
@@ -19,7 +20,7 @@ class Library{
     
     // Authentication
     public void userauth() {
-        ausers.put("root", "Admin123"); //Root user can only create new database
+        ausers.put("root", en.encrypt("Admin123")); //Root user can only create new database
         books.add(new Book(101, "Java Basics", "James Gosling"));
         books.add(new Book(102, "Algorithms", "CLRS"));
 
@@ -53,11 +54,11 @@ class Library{
         System.out.print("Enter Password: ");
         String password = conin.nextLine();
 
-        if (ausers.containsKey(username) && ausers.get(username).equals(password)) {
+        if (ausers.containsKey(username) && ausers.get(username).equals(en.encrypt(password))) {
             System.out.println("\nWelcome Admin " + username);
             userRole = 1;
             menu();
-        } else if (susers.containsKey(username) && susers.get(username).equals(password)) {
+        } else if (susers.containsKey(username) && susers.get(username).equals(en.encrypt(password))) {
             System.out.println("\nWelcome Student " + username);
             userRole = 2;
             menu();
@@ -72,6 +73,14 @@ class Library{
         System.out.println("REGISTER: ");
         System.out.print("Enter New Username: ");
         username = conin.nextLine();
+
+        //Check to prevent duplicate username
+        if(ausers.containsKey(username) || susers.containsKey(username)){
+            System.out.println("Username already taken!");
+            register();
+            return;
+        }
+        
         System.out.print("Enter Password: ");
         String password = conin.nextLine();
         System.out.print("Retype Password: ");
@@ -86,13 +95,13 @@ class Library{
         }
 
         if (role.equals("admin")) {
-            ausers.put(username, password);
-            db.write(username,password,"admin"); //Loading credential into database
+            ausers.put(username, en.encrypt(password));
+            db.write(username,en.encrypt(password),"admin"); //Loading credential into database
             System.out.println("Registration Successful. Please Login.");
             login();
         } else if (role.equals("student")) {
-            susers.put(username, password);
-            db.write(username,password,"student"); //Loading credential into database
+            susers.put(username, en.encrypt(password));
+            db.write(username,en.encrypt(password),"student"); //Loading credential into database
             System.out.println("Registration Successful. Please Login.");
             login();
         } else {
