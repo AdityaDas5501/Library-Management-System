@@ -5,6 +5,7 @@ class Library{
 
     Scanner conin = new Scanner(System.in);
     UserDatabaseManager db = new UserDatabaseManager();
+    BookDatabaseManager bdm = new BookDatabaseManager();
     Encryption en = new Encryption();
     ArrayList<Book> books = new ArrayList<>();
     HashMap<String, String> ausers = new HashMap<>();
@@ -15,14 +16,13 @@ class Library{
     public void display() {
         System.out.println("====== Welcome to Library ======");
         db.loadData(ausers, susers);
+        bdm.loadBooksFromDB(books);
         userauth();
     }
     
     // Authentication
     public void userauth() {
         ausers.put("root", en.encrypt("Admin123")); //Root user can only create new database
-        books.add(new Book(101, "Java Basics", "James Gosling"));
-        books.add(new Book(102, "Algorithms", "CLRS"));
 
         System.out.println("Are You a Student or Admin(Librarian): ");//Just for formality
         String usern = conin.nextLine().strip().toLowerCase();
@@ -297,6 +297,7 @@ class Library{
         String author = conin.nextLine();
 
         books.add(new Book(id, title, author));
+        bdm.write(id, title, author);
         System.out.println("Book Added Successfully!");
 
         whattodonext();
