@@ -20,7 +20,7 @@ public class UserDatabaseManager {
     public void write(String username,String password,String role){
         try(BufferedReader br = new BufferedReader(new FileReader(fileName))){
             try(FileWriter writer = new FileWriter(fileName,true)) {
-                writer.write(username+","+en.encrypt(password)+","+role+"\n");
+                writer.write(username+","+password+","+role+"\n");
             }
             catch(IOException e) {
                 e.printStackTrace();
@@ -60,5 +60,6 @@ public class UserDatabaseManager {
         }
     }
 }
+
 
 
